@@ -40,23 +40,27 @@ export function Gallery() {
                     {photos.map((photo, index) => (
                         <motion.div
                             key={photo.id}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.05 }}
-                            className="break-inside-avoid relative group cursor-pointer overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300"
+                            viewport={{ once: true, amount: 0.1 }}
+                            transition={{
+                                duration: 1,
+                                ease: [0.22, 1, 0.36, 1], // Custom "soft" ease-out curve
+                                delay: (index % 4) * 0.05 // Faster stagger
+                            }}
+                            className="break-inside-avoid relative group cursor-pointer overflow-hidden rounded-xl shadow-md hover:shadow-2xl transition-all duration-500 ease-out"
                             onClick={() => setSelectedPhoto(photo.src)}
                         >
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors z-10 duration-300" />
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors z-10 duration-500 ease-out" />
                             <Image
                                 src={photo.src}
                                 alt={photo.alt}
                                 width={500}
                                 height={500}
-                                className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                className="w-full h-auto object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
                             />
-                            <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                                <p className="text-white text-sm font-medium drop-shadow-md">
+                            <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out z-20">
+                                <p className="text-white text-sm font-medium drop-shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-100">
                                     Moment #{photo.id}
                                 </p>
                             </div>

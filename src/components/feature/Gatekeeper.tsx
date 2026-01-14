@@ -54,17 +54,19 @@ export function Gatekeeper({ onUnlock }: GatekeeperProps) {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-600 ml-1">
-                            The Question
-                        </label>
+                    <div className="space-y-4">
+                        <div className="text-center">
+                            <label className="text-base font-medium text-gray-700 font-serif">
+                                Siapa nama lengkap orang tercantik hari ini?
+                            </label>
+                        </div>
                         <motion.div
                             animate={error ? { x: [-10, 10, -10, 10, 0] } : {}}
                             transition={{ duration: 0.5 }}
                         >
                             <Input
                                 type="text"
-                                placeholder="Siapa nama lengkap orang tercantik hari ini?"
+                                placeholder="Jawab di sini..."
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 className="bg-white/50 border-white/50 focus:border-rose-300 focus:ring-rose-200 h-12 text-center text-lg placeholder:text-gray-400 font-serif"
