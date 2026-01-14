@@ -40,7 +40,19 @@ export function Riddle() {
         {
             id: 1,
             title: "The QA Tester's Code",
-            text: "Seorang QA Engineer memiliki backlog 50X tiket. Hari ini ia mengerjakan Y/2 tiket. Dari yang dikerjakan, 4 tiket statusnya Closed, sisanya Open kembali (Reopen). Jika jumlah tiket Reopen sama dengan nilai X, berapakah X + Y?",
+            text: `Seorang QA Engineer sedang menjalani sprint yang cukup melelahkan karena banyak tiket yang bolak-balik Reopen.
+
+Hari ini ia hanya mampu mengerjakan setengah dari Y tiket, karena sebagian besar waktu habis untuk retest bug lama.
+
+Dari tiket yang dikerjakan:
+4 tiket berhasil lolos verifikasi dan berstatus Closed
+Sisanya kembali ke board sebagai Reopen (X)
+
+Saat daily stand-up, ia menyadari:
+Jika jumlah tiket Reopen (X) ditambah 4, hasilnya adalah setengah dari target harian (Y).
+Dan jika X ditambah Y, hasilnya adalah angka spesial ini.
+
+Tentukan nilai X + Y.`,
             answer: "26",
         },
     ];
@@ -128,9 +140,9 @@ export function Riddle() {
                                     <span className="font-bold tracking-wider uppercase text-xs">{steps[step].title}</span>
                                 </div>
 
-                                <p className="text-lg text-slate-700 font-medium leading-relaxed">
+                                <div className="text-lg text-slate-700 font-medium leading-relaxed whitespace-pre-wrap">
                                     {steps[step].text}
-                                </p>
+                                </div>
 
                                 <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800 flex gap-2 items-start">
                                     <span className="text-lg">⚠️</span>
