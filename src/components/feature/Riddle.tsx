@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Unlock, Gift, MapPin, Clock } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -13,6 +14,7 @@ export function Riddle() {
     const [answer, setAnswer] = useState("");
     const [error, setError] = useState(false);
     const [unlocked, setUnlocked] = useState(false);
+    const [showHiddenGift, setShowHiddenGift] = useState(false);
 
     // Riddles configuration
     const riddles = [
@@ -173,51 +175,85 @@ Tentukan nilai X + Y.`,
                         </AnimatePresence>
                     </Card>
                 ) : (
-                    <motion.div
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        className="bg-white p-8 rounded-2xl shadow-2xl text-center border-4 border-gold/30"
-                    >
-                        <div className="mb-6 flex justify-center">
-                            <Gift className="w-20 h-20 text-rose-400 animate-bounce" />
-                        </div>
-                        <h3 className="text-2xl font-serif font-bold text-slate-800 mb-4">
-                            Happy Birthday, Vanda!
-                        </h3>
-                        <div className="text-slate-600 mb-8 space-y-4 px-4 leading-relaxed italic font-serif">
-                            <p>
-                                "Hadiah sesungguhnya adalah waktu yang akan kita habiskan bersama."
-                            </p>
-                            <p>
-                                Nanti malam, aku akan menjemputmu di rumah untuk makan malam spesial.
-                                Aku berangkat dari kantor pukul 19.00 dan akan tiba sekitar pukul 20.00.
-                            </p>
-                            <p className="font-semibold text-rose-500">
-                                Bersiaplah, cantik. Sampai jumpa nanti! ❤️
-                            </p>
-                        </div>
+                    <>
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className="bg-white p-8 rounded-2xl shadow-2xl text-center border-4 border-gold/30"
+                        >
+                            <div className="mb-6 flex justify-center">
+                                <motion.div
+                                    whileHover={{ scale: 1.1, rotate: 10 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    className="cursor-pointer"
+                                    onClick={() => setShowHiddenGift(true)}
+                                >
+                                    <Gift className="w-20 h-20 text-rose-400 animate-bounce" />
+                                </motion.div>
+                            </div>
+                            <h3 className="text-2xl font-serif font-bold text-slate-800 mb-4">
+                                Happy Birthday, Vanda!
+                            </h3>
+                            <div className="text-slate-600 mb-8 space-y-4 px-4 leading-relaxed italic font-serif">
+                                <p>
+                                    "Hadiah sesungguhnya adalah waktu yang akan kita habiskan bersama."
+                                </p>
+                                <p>
+                                    Nanti malam, aku akan menjemputmu di rumah untuk makan malam spesial.
+                                    Aku berangkat dari kantor pukul 19.00 dan akan tiba sekitar pukul 20.00.
+                                </p>
+                                <p className="font-semibold text-rose-500">
+                                    Bersiaplah, cantik. Sampai jumpa nanti! ❤️
+                                </p>
+                            </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left bg-sage-50 p-6 rounded-xl border border-sage-100">
-                            <div className="flex items-center gap-3">
-                                <div className="bg-white p-2 rounded-full shadow-sm text-sage-600">
-                                    <Clock className="w-5 h-5" />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left bg-sage-50 p-6 rounded-xl border border-sage-100">
+                                <div className="flex items-center gap-3">
+                                    <div className="bg-white p-2 rounded-full shadow-sm text-sage-600">
+                                        <Clock className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-slate-400 uppercase tracking-wider">Pickup Time</p>
+                                        <p className="font-semibold text-slate-700">15 Jan 2026, 20:00 WIB</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-xs text-slate-400 uppercase tracking-wider">Pickup Time</p>
-                                    <p className="font-semibold text-slate-700">15 Jan 2026, 20:00 WIB</p>
+                                <div className="flex items-center gap-3">
+                                    <div className="bg-white p-2 rounded-full shadow-sm text-rose-500">
+                                        <MapPin className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-slate-400 uppercase tracking-wider">Plan</p>
+                                        <p className="font-semibold text-slate-700">Dinner</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-3">
-                                <div className="bg-white p-2 rounded-full shadow-sm text-rose-500">
-                                    <MapPin className="w-5 h-5" />
+
+                            <p className="text-[10px] text-slate-300 mt-6 hover:text-slate-400 transition-colors cursor-help">
+                                Psst... cari tombol tersembunyi untuk membuka kado lainnya
+                            </p>
+                        </motion.div>
+
+                        {/* Hidden Gift Dialog */}
+                        <Dialog open={showHiddenGift} onOpenChange={setShowHiddenGift}>
+                            <DialogContent className="max-w-md w-full bg-white p-0 border-none rounded-2xl overflow-hidden shadow-2xl">
+                                <div className="relative">
+                                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sage-300 to-rose-300" />
+                                    <div className="p-6 text-center">
+                                        <h3 className="text-2xl font-serif font-bold text-slate-800 mb-2">Surprise! 🎁</h3>
+                                        <p className="text-slate-500 mb-6">Just a little something extra for you.</p>
+                                        <div className="rounded-xl overflow-hidden border-4 border-slate-100 shadow-inner">
+                                            <img
+                                                src="/gift.png"
+                                                alt="Special Gift"
+                                                className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-500"
+                                            />
+                                        </div>
+                                        <p className="mt-4 text-sm font-semibold text-rose-500">New Balance Rebel v4</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-xs text-slate-400 uppercase tracking-wider">Plan</p>
-                                    <p className="font-semibold text-slate-700">Dinner</p>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
+                            </DialogContent>
+                        </Dialog>
+                    </>
                 )}
             </div>
         </section>
